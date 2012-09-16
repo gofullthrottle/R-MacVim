@@ -4,11 +4,11 @@ A simple R plugin for MacVim.
 ## What is it?
 - It is a R plugin for MacVim.
  
-- It allows you to send selected lines, blocks or paragraphs to R (by CMD+r).
+- It allows you to send selected words, lines and blocks to R (by CMD+r).
 
 - It also allows you to source the whole R file (by CMD+R). 
 
-- It also allows you to comment or uncomment (by CMD+3).
+- It also allows you to comment or uncomment single or multiple lines (by CMD+3).
 
 - It also allows you to change your working directory (by CMD+d).
 
