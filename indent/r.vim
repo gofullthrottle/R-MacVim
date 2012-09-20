@@ -14,9 +14,7 @@ function! CleanText(text)
     return text
 endfunction
 
-function! IsRCommentString(){
 
-}
 
 function! RIndent(lnum_curr)
     let lnum_curr = a:lnum_curr
