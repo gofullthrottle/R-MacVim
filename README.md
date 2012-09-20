@@ -16,7 +16,7 @@ A simple R plugin for MacVim.
 
 - Keywords highlight 
 
-- Indentation (the one comes with VIM is slow).
+- Fast Indentation (the one comes with VIM is slow).
 
 - For development and bug reports:
  http://github.com/randy3k/r-macvim
