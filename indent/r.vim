@@ -47,19 +47,22 @@ function! RIndent(lnum_curr)
     else
         " if the previous 2 lines are complete
         let lnum_prev2 = prevnonblank(lnum_prev-1)
-        call cursor(lnum_prev2,1)
-        let lnum2 = searchpair(s:openpat, '', s:closepat,'nW', s:skipflag, lnum_prev)
-        if lnum2 == 0
-            call cursor(lnum_curr,1)
-            let lnum1 = searchpair(s:openpat, '', s:closepat,'bnW', s:skipflag, lnum_prev2)
-            if lnum1 ==0
-                if line_curr =~ '^\s*}'
-                    let n -= 1
+        let line_prev2 = getline(lnum_prev2)
+        let line_prev2 = CleanText(line_prev2)
+        if  line_prev2 !~ s:envpat
+            call cursor(lnum_prev2,1)
+            let lnum2 = searchpair(s:openpat, '', s:closepat,'nW', s:skipflag, lnum_prev)
+            if lnum2 == 0
+                call cursor(lnum_curr,1)
+                let lnum1 = searchpair(s:openpat, '', s:closepat,'bnW', s:skipflag, lnum_prev2)
+                if lnum1 ==0
+                    if line_curr =~ '^\s*}'
+                        let n -= 1
+                    endif
+                    return indent(lnum_prev) + n * &sw
                 endif
-                return indent(lnum_prev2) + n * &sw
             endif
         endif
-
     endif
 
 
