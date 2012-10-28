@@ -1,5 +1,5 @@
 " Only do this when not yet done for this buffer
-if exists("b:did_r_ftplugin") || exists("disable_r_ftplugin")
+if exists("b:did_r_ftplugin")
     finish
 endif
 
@@ -95,10 +95,10 @@ nnoremap <buffer><silent> <Plug>RComment    :call <SID>RComment("#")<CR>
 inoremap <buffer><silent> <Plug>RComment    <ESC>:call <SID>RComment("#")<CR>gi
 vnoremap <buffer><silent> <Plug>RComment    :call <SID>RComment("#")<CR><ESC>:normal gv<CR>
 
-if !exists(g:r_macvim_RSource)     | let g:r_macvim_RSource = '<D-R>'     | endif
-if !exists(g:r_macvim_RSend)       | let g:r_macvim_RSend = '<D-r>'       | endif
-if !exists(g:r_macvim_RChgWorkDir) | let g:r_macvim_RChgWorkDir = '<D-d>' | endif
-if !exists(g:r_macvim_RComment)    | let g:r_macvim_RComment = '<D-3>'    | endif
+if !exists('g:r_macvim_RSource')     | let g:r_macvim_RSource = '<D-R>'     | endif
+if !exists('g:r_macvim_RSend')       | let g:r_macvim_RSend = '<D-r>'       | endif
+if !exists('g:r_macvim_RChgWorkDir') | let g:r_macvim_RChgWorkDir = '<D-d>' | endif
+if !exists('g:r_macvim_RComment')    | let g:r_macvim_RComment = '<D-3>'    | endif
 
 exe 'map <buffer><silent> '  . g:r_macvim_RSource     . ' <Plug>RSource'
 exe 'imap <buffer><silent> ' . g:r_macvim_RSource     . ' <Plug>RSource'

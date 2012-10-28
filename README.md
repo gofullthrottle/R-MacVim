@@ -8,9 +8,9 @@ A simple R plugin for MacVim.
 
 - It also allows you to source the whole R file (by CMD+R). 
 
-- It also allows you to comment or uncomment single or multiple lines (by CMD+3).
-
 - It also allows you to change your working directory (by CMD+d).
+
+- It also allows you to comment or uncomment single or multiple lines (by CMD+3).
 
 - Key maps are changable (see below).
 
@@ -29,10 +29,10 @@ A simple R plugin for MacVim.
 
 - You can change the key mappings by
 
-        let g:r_macvim_RSource = '<D-R>'
-        let g:r_macvim_RSend = '<D-r>'
+        let g:r_macvim_RSource     = '<D-R>'
+        let g:r_macvim_RSend       = '<D-r>'
         let g:r_macvim_RChgWorkDir = '<D-d>'
-        let g:r_macvim_RComment = '<D-3>'
+        let g:r_macvim_RComment    = '<D-3>'
 
 - If you want to use R.app instead of R64.app, also add the following to your .vimrc file:
 
