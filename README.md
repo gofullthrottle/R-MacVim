@@ -14,8 +14,8 @@ A simple R plugin for MacVim.
 - Stable updates will be uploaded to:
  http://www.vim.org/scripts/script.php?script_id=4215
 - This plugin aims at being simple. 
- See http://www.vim.org/scripts/script.php?script_id=2628
-for something more complete
+For more complete plugin, see:
+ - vim-r-plugin, vimscript#2628
 
 ## Installation
 - Copy the file r.vim to ~/.vim/ftplugin/
