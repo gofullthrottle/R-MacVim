@@ -13,22 +13,16 @@ endfunction
 let s:SID = s:GetSID()
 let s:skipflag = 'synIDattr(synID(line("."), col("."), 0), "name") =~ ''Comment\|String'''
 
-function! s:Escape(command)
-    let command = a:command
-    let command = substitute(command, '\', '\\\\', 'g')
-    let command = substitute(command, '"', '\\"', 'g')
-    let command = substitute(command, "'", "'\\\\''", 'g')
-    return(command)
-endfunction
-
 function! s:Rcmd(command)
     let command = a:command
+    let command =  escape(command,'"\')
+    let command = substitute(command, "'", "'\\\\''", 'g')
     if exists("g:r_macvim_use32") && g:r_macvim_use32==1
-        let app="R"
+        let Rapp="R"
     else
-        let app="R64"
+        let Rapp="R64"
     endif
-    call system("osascript -e 'tell application \"". app ."\" to cmd \"" . s:Escape(a:command). "\"'" .
+    call system("osascript -e 'tell application \"". Rapp ."\" to cmd \"" . command . "\"'" .
                 \ " -e 'tell application \"System Events\" to tell process \"R\" to perform action \"AXRaise\" of window 1'")
 endfunction
 
@@ -70,12 +64,12 @@ endfunction!
 
 function! s:RComment(sym)
     let line = getline(".")
-    if !empty(substitute(line, '^\s*\(.\{-}\)\s*$', '\1', ''))
-        let firstchar = matchstr(line, '\v\s*\zs.\ze.*')
+    if line =~ '\S'
+        let firstchar = matchstr(line, '^\s*\zs\S\ze')
         if firstchar != a:sym
             execute "normal! I". a:sym ." "
         else
-            execute ':s/'. a:sym .'\s*\S\@=//'
+            execute ':s/\(^\s*\)\@<='. a:sym .'\s*\S\@=//'
         endif
     endif
 endfunction
@@ -99,6 +93,11 @@ if !exists('g:r_macvim_RSource')     | let g:r_macvim_RSource = '<D-R>'     | en
 if !exists('g:r_macvim_RSend')       | let g:r_macvim_RSend = '<D-r>'       | endif
 if !exists('g:r_macvim_RChgWorkDir') | let g:r_macvim_RChgWorkDir = '<D-d>' | endif
 if !exists('g:r_macvim_RComment')    | let g:r_macvim_RComment = '<D-3>'    | endif
+
+map <buffer><silent> <leader>R <Plug>RSource
+map <buffer><silent> <leader>r <Plug>RSend
+map <buffer><silent> <leader>d <Plug>RChgWorkDir
+map <buffer><silent> <leader>3 <Plug>RComment
 
 exe 'map <buffer><silent> '  . g:r_macvim_RSource     . ' <Plug>RSource'
 exe 'imap <buffer><silent> ' . g:r_macvim_RSource     . ' <Plug>RSource'
