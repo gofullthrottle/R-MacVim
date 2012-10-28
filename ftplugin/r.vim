@@ -6,13 +6,6 @@ endif
 " Don't load another plugin for this buffer
 let b:did_r_ftplugin = 1
 
-
-function! s:GetSID()
-    return matchstr(expand('<sfile>'), '\zs<SNR>\d\+_\ze.*$')
-endfunction
-let s:SID = s:GetSID()
-let s:skipflag = 'synIDattr(synID(line("."), col("."), 0), "name") =~ ''Comment\|String'''
-
 function! s:Rcmd(command)
     let command = a:command
     let command =  escape(command,'"\')
@@ -34,13 +27,14 @@ endfunction
 
 function! s:RSend(mode)
     if a:mode =~ 'n\|i'
+        let skipflag = 'synIDattr(synID(line("."), col("."), 0), "name") =~ ''Comment\|String'''
         let command = getline(".")
         let saved_pos = getpos('.')
         let lnum = line('.')
         call cursor(lnum,1)
         let cnum = searchpos('{\s*\(#.*\)\=$', 'W', line('.'))[1]
-        if cnum && !eval(s:skipflag)
-            let [lnum2,cnum2] = searchpairpos('{', '', '}', 'W', s:skipflag)
+        if cnum && !eval(skipflag)
+            let [lnum2,cnum2] = searchpairpos('{', '', '}', 'W', skipflag)
             let lines = getline(lnum, lnum2)
             let command = join(lines, "\n")
         endif
