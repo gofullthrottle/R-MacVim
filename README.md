@@ -3,29 +3,22 @@ A simple R plugin for MacVim.
 
 ## What is it?
 - It is a R plugin for MacVim.
-
 - It allows you
- -  to send selected lines and function to R (by CMD+r or \r).
+ - to send selected lines and function to R (by CMD+r or \r).
  - to source the whole R file (by CMD+R or \R). 
  - to change your working directory (by CMD+d or \d).
  - to comment or uncomment single or multiple lines (by CMD+3 or \3).
-
 - Key maps are changable (see below).
-
 - For development and bug reports:
  http://github.com/randy3k/r-macvim
-
 - Stable updates will be uploaded to:
  http://www.vim.org/scripts/script.php?script_id=4215
-
 - This plugin aims at being simple. 
  See http://www.vim.org/scripts/script.php?script_id=2628
 for something more complete
 
 ## Installation
-
 - Copy the file r.vim to ~/.vim/ftplugin/
-
 - You can change the key mappings by
 
         let g:r_macvim_RSource     = '<D-R>'
