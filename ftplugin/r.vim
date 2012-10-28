@@ -44,7 +44,7 @@ function! s:RSend(mode)
         let saved_pos = getpos('.')
         let lnum = line('.')
         call cursor(lnum,1)
-        let cnum = searchpos('{\s*$', 'W', line('.'))[1]
+        let cnum = searchpos('{\s*\(#.*\)\=$', 'W', line('.'))[1]
         if cnum && !eval(s:skipflag)
             let [lnum2,cnum2] = searchpairpos('{', '', '}', 'W', s:skipflag)
             let lines = getline(lnum, lnum2)
@@ -80,15 +80,31 @@ function! s:RComment(sym)
     endif
 endfunction
 
-au FileType r nnoremap <buffer><silent> <Plug>RSource     :call <SID>RSource()<CR>
-au FileType r inoremap <buffer><silent> <Plug>RSource     <ESC>:call <SID>RSource()<CR>gi
-au FileType r vnoremap <buffer><silent> <Plug>RSource     :<C-u>call <SID>RSource()<CR><ESC>:normal gv<CR>
-au FileType r nnoremap <buffer><silent> <Plug>RSelection  :call <SID>RSend('n')<CR>
-au FileType r inoremap <buffer><silent> <Plug>RSelection  <ESC>:call <SID>RSend('i')<CR>gi
-au FileType r vnoremap <buffer><silent> <Plug>RSelection  :<C-u>call <SID>RSend('v')<CR><ESC>:normal gv<CR>
-au FileType r nnoremap <buffer><silent> <Plug>RChgWorkDir :call <SID>RChgWorkDir()<CR>
-au FileType r inoremap <buffer><silent> <Plug>RChgWorkDir <ESC>:call <SID>RChgWorkDir()<CR>gi
-au FileType r vnoremap <buffer><silent> <Plug>RChgWorkDir :<C-u>call <SID>RChgWorkDir()<CR><ESC>:normal gv<CR>
-au FileType r nnoremap <buffer><silent> <Plug>RComment    :call <SID>RComment("#")<CR>
-au FileType r inoremap <buffer><silent> <Plug>RComment    <ESC>:call <SID>RComment("#")<CR>gi
-au FileType r vnoremap <buffer><silent> <Plug>RComment    :call <SID>RComment("#")<CR><ESC>:normal gv<CR>
+
+" key mappings
+nnoremap <buffer><silent> <Plug>RSource     :call <SID>RSource()<CR>
+inoremap <buffer><silent> <Plug>RSource     <ESC>:call <SID>RSource()<CR>gi
+vnoremap <buffer><silent> <Plug>RSource     :<C-u>call <SID>RSource()<CR><ESC>:normal gv<CR>
+nnoremap <buffer><silent> <Plug>RSend       :call <SID>RSend('n')<CR>
+inoremap <buffer><silent> <Plug>RSend       <ESC>:call <SID>RSend('i')<CR>gi
+vnoremap <buffer><silent> <Plug>RSend       :<C-u>call <SID>RSend('v')<CR><ESC>:normal gv<CR>
+nnoremap <buffer><silent> <Plug>RChgWorkDir :call <SID>RChgWorkDir()<CR>
+inoremap <buffer><silent> <Plug>RChgWorkDir <ESC>:call <SID>RChgWorkDir()<CR>gi
+vnoremap <buffer><silent> <Plug>RChgWorkDir :<C-u>call <SID>RChgWorkDir()<CR><ESC>:normal gv<CR>
+nnoremap <buffer><silent> <Plug>RComment    :call <SID>RComment("#")<CR>
+inoremap <buffer><silent> <Plug>RComment    <ESC>:call <SID>RComment("#")<CR>gi
+vnoremap <buffer><silent> <Plug>RComment    :call <SID>RComment("#")<CR><ESC>:normal gv<CR>
+
+if !exists(g:r_macvim_RSource)     | let g:r_macvim_RSource = '<D-R>'     | endif
+if !exists(g:r_macvim_RSend)       | let g:r_macvim_RSend = '<D-r>'       | endif
+if !exists(g:r_macvim_RChgWorkDir) | let g:r_macvim_RChgWorkDir = '<D-d>' | endif
+if !exists(g:r_macvim_RComment)    | let g:r_macvim_RComment = '<D-3>'    | endif
+
+exe 'map <buffer><silent> '  . g:r_macvim_RSource     . ' <Plug>RSource'
+exe 'imap <buffer><silent> ' . g:r_macvim_RSource     . ' <Plug>RSource'
+exe 'map <buffer><silent> '  . g:r_macvim_RSend       . ' <Plug>RSend'
+exe 'imap <buffer><silent> ' . g:r_macvim_RSend       . ' <Plug>RSend'
+exe 'map <buffer><silent> '  . g:r_macvim_RChgWorkDir . ' <Plug>RChgWorkDir'
+exe 'imap <buffer><silent> ' . g:r_macvim_RChgWorkDir . ' <Plug>RChgWorkDir'
+exe 'map <buffer><silent> '  . g:r_macvim_RComment    . ' <Plug>RComment'
+exe 'imap <buffer><silent> ' . g:r_macvim_RComment    . ' <Plug>RComment'
