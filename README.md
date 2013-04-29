@@ -29,3 +29,7 @@ For more complete plugin, see:
 - If you want to use R.app instead of R64.app, also add the following to your .vimrc file:
 
         let g:r_macvim_use32 = 1
+
+- For >= R 3.0.0, this script is not working, a quick fix is to add this
+
+        let g:r_macvim_use32 = 1
